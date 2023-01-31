@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,9 @@ import modelo.Producto;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ProductoFormulario extends JFrame {
 
@@ -26,6 +30,10 @@ public class ProductoFormulario extends JFrame {
 	public JButton btnGuardar;
 	public JButton btnEliminar;
 	public JButton btnLimpiar;
+	public JButton btnBuscarTodos;
+
+	public JTable table;
+	private DefaultTableModel tableModel;
 
 	/**
 	 * Launch the application.
@@ -56,55 +64,55 @@ public class ProductoFormulario extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblCodigo = new JLabel("Código");
-		lblCodigo.setBounds(10, 29, 46, 14);
+		lblCodigo.setBounds(10, 30, 46, 14);
 		contentPane.add(lblCodigo);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 52, 46, 14);
+		lblNombre.setBounds(10, 74, 46, 14);
 		contentPane.add(lblNombre);
 
 		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(10, 77, 46, 14);
+		lblPrecio.setBounds(10, 118, 46, 14);
 		contentPane.add(lblPrecio);
 
 		textCodigo = new JTextField();
-		textCodigo.setBounds(68, 26, 86, 20);
+		textCodigo.setBounds(68, 27, 86, 20);
 		contentPane.add(textCodigo);
 		textCodigo.setColumns(10);
 
 		textNombre = new JTextField();
 		textNombre.setColumns(10);
-		textNombre.setBounds(66, 49, 86, 20);
+		textNombre.setBounds(66, 71, 86, 20);
 		contentPane.add(textNombre);
 
 		textPrecio = new JTextField();
 		textPrecio.setColumns(10);
-		textPrecio.setBounds(66, 74, 86, 20);
+		textPrecio.setBounds(66, 115, 86, 20);
 		contentPane.add(textPrecio);
 
 		JLabel lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(10, 115, 46, 14);
+		lblCantidad.setBounds(10, 162, 46, 14);
 		contentPane.add(lblCantidad);
 
 		textCantidad = new JTextField();
 		textCantidad.setColumns(10);
-		textCantidad.setBounds(68, 105, 86, 20);
+		textCantidad.setBounds(68, 159, 86, 20);
 		contentPane.add(textCantidad);
 
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(10, 190, 89, 23);
+		btnGuardar.setBounds(11, 206, 89, 23);
 		contentPane.add(btnGuardar);
 
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(132, 190, 89, 23);
+		btnModificar.setBounds(116, 206, 89, 23);
 		contentPane.add(btnModificar);
 
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(231, 190, 89, 23);
+		btnEliminar.setBounds(215, 206, 89, 23);
 		contentPane.add(btnEliminar);
 
 		btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(330, 190, 89, 23);
+		btnLimpiar.setBounds(314, 206, 89, 23);
 		contentPane.add(btnLimpiar);
 
 		btnBuscar = new JButton("Buscar");
@@ -115,6 +123,41 @@ public class ProductoFormulario extends JFrame {
 		textId.setColumns(10);
 		textId.setBounds(317, 60, 86, 20);
 		contentPane.add(textId);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(162, 87, 262, 112);
+		contentPane.add(scrollPane);
+
+		table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//				{null, null, null, null, null},
+//			},
+//			new String[] {
+//				"id", "codigo", "nombre", "precio", "cantidad"
+//			}
+//		));
+		this.tableModel = new DefaultTableModel();
+		table.setModel(tableModel);
+		
+		tableModel.addColumn("id");
+		tableModel.addColumn("codigo");
+		tableModel.addColumn("nombre");
+		tableModel.addColumn("cantidad");
+		tableModel.addColumn("precio");
+
+		scrollPane.setViewportView(table);
+
+		btnBuscarTodos = new JButton("ver todos");
+		btnBuscarTodos.setBounds(190, 26, 89, 23);
+		contentPane.add(btnBuscarTodos);
 	}
 
 	public JButton getBtnBuscar() {
@@ -152,5 +195,18 @@ public class ProductoFormulario extends JFrame {
 		producto.setCodigo(this.textCodigo.getText());
 		producto.setPrecio(Double.parseDouble(this.textPrecio.getText()));
 		return producto;
+	}
+
+	public void rellenarTablaProductos(ArrayList<Producto> productos) {
+		for (Producto producto : productos) {
+			Object[] fila = new Object[6];
+			fila[0] = producto.getId();
+			fila[1] = producto.getCodigo();
+			fila[2] = producto.getNombre();
+			fila[3] = producto.getCantidad();
+			fila[4] = producto.getPrecio();
+
+			this.tableModel.addRow(fila);
+		}
 	}
 }
