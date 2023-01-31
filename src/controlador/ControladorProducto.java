@@ -41,6 +41,7 @@ public class ControladorProducto implements ActionListener {
 			pm.conectar();
 			if(pm.registrar(producto)) {
 				JOptionPane.showMessageDialog(formularioProducto, "Producto registrado", "Ok", JOptionPane.INFORMATION_MESSAGE);
+				formularioProducto.limpiar();
 			}else {
 				JOptionPane.showMessageDialog(formularioProducto, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
 			}
