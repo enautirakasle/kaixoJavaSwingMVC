@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class ControladorProducto implements ActionListener {
 		this.formularioProducto.btnGuardar.addActionListener(this);
 		this.formularioProducto.btnLimpiar.addActionListener(this);
 		this.formularioProducto.btnModificar.addActionListener(this);
+		this.formularioProducto.btnBuscarTodos.addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -38,15 +40,14 @@ public class ControladorProducto implements ActionListener {
 			
 			Producto producto = formularioProducto.getDatosProducto();
 			
-			ProductoModelo pm = new ProductoModelo();
-			pm.conectar();
-			if(pm.registrar(producto)) {
+			productoM.conectar();
+			if(productoM.registrar(producto)) {
 				JOptionPane.showMessageDialog(formularioProducto, "Producto registrado", "Ok", JOptionPane.INFORMATION_MESSAGE);
 				formularioProducto.limpiar();
 			}else {
 				JOptionPane.showMessageDialog(formularioProducto, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
 			}
-			pm.cerrar();
+			productoM.cerrar();
 		}
 		
 		if (e.getSource() == formularioProducto.btnLimpiar) {
@@ -58,16 +59,23 @@ public class ControladorProducto implements ActionListener {
 			Producto producto = new Producto();
 			producto.setCodigo(codigoProducto);
 			
-			ProductoModelo pm = new ProductoModelo();
-			pm.conectar();
-			if(pm.eliminar(producto)) {
+			productoM.conectar();
+			if(productoM.eliminar(producto)) {
 				JOptionPane.showMessageDialog(formularioProducto, "Producto eliminado", "Ok", JOptionPane.INFORMATION_MESSAGE);
 				formularioProducto.limpiar();
 			}else {
 				JOptionPane.showMessageDialog(formularioProducto, "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
 
 			}
-			pm.cerrar();
+			productoM.cerrar();
+		}
+		
+		if(e.getSource() == formularioProducto.btnBuscarTodos) {
+			productoM.conectar();
+			ArrayList<Producto> productos = productoM.productos();
+			productoM.cerrar();
+			
+			formularioProducto.rellenarTablaProductos(productos);
 		}
 		
 		if (e.getSource() == formularioProducto.btnModificar) {
