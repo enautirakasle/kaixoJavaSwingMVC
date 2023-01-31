@@ -35,8 +35,22 @@ public class ProductoModelo extends Conector {
 		return false;
 	}
 	
+	/*
+	 * producto viene con codigo relleno
+	 * elimin el procducto con ese código
+	 */
 	public boolean eliminar(Producto producto) {
-		return false;
+		PreparedStatement pst = null;
+		String sql = "DELETE FROM productos WHERE codigo = ?";
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, producto.getCodigo());
+			pst.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean buscar(Producto producto) {

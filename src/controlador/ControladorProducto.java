@@ -54,7 +54,20 @@ public class ControladorProducto implements ActionListener {
 		}
 		
 		if (e.getSource() == formularioProducto.btnEliminar) {
+			String codigoProducto = formularioProducto.textCodigo.getText();
+			Producto producto = new Producto();
+			producto.setCodigo(codigoProducto);
+			
+			ProductoModelo pm = new ProductoModelo();
+			pm.conectar();
+			if(pm.eliminar(producto)) {
+				JOptionPane.showMessageDialog(formularioProducto, "Producto eliminado", "Ok", JOptionPane.INFORMATION_MESSAGE);
+				formularioProducto.limpiar();
+			}else {
+				JOptionPane.showMessageDialog(formularioProducto, "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
 
+			}
+			pm.cerrar();
 		}
 		
 		if (e.getSource() == formularioProducto.btnModificar) {
