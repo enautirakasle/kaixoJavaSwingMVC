@@ -1,13 +1,37 @@
 package modelo;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ProductoModelo extends Conector {
 
-	ArrayList<Producto> productos() {
-		return null;
+	public ArrayList<Producto> productos() {
+		String sql = "SELECT * FROM productos";
+		Statement st;
+		
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		try {
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			
+			Producto p;
+			while(rs.next()) {
+				p = new Producto();
+				p.setId(rs.getInt("id"));
+				p.setNombre(rs.getString("nombre"));
+				p.setCodigo(rs.getString("codigo"));
+				p.setPrecio(rs.getDouble("precio"));
+				p.setCantidad(rs.getInt("cantidad"));
+				productos.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return productos;
 	}
 
 	public boolean registrar(Producto producto) {
