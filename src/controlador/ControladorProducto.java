@@ -11,12 +11,10 @@ import vista.ProductoFormulario;
 
 public class ControladorProducto implements ActionListener {
 
-	private Producto producto;
 	private ProductoModelo productoM;
 	private vista.ProductoFormulario formularioProducto;
 
-	public ControladorProducto(Producto producto, ProductoModelo productoM, ProductoFormulario formularioProducto) {
-		this.producto = producto;
+	public ControladorProducto(ProductoModelo productoM, ProductoFormulario formularioProducto) {
 		this.productoM = productoM;
 		this.formularioProducto = formularioProducto;
 		this.formularioProducto.btnBuscar.addActionListener(this);
@@ -28,26 +26,23 @@ public class ControladorProducto implements ActionListener {
 
 	public void inicializar() {
 		this.formularioProducto.setTitle("Productos");
-		formularioProducto.setLocation(null);
-		formularioProducto.setVisible(true);
+		formularioProducto.setLocationRelativeTo(null);
+		formularioProducto.setVisible(false);
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == formularioProducto.btnGuardar) {
-			Producto producto = new Producto();
 			
-			producto.setNombre(formularioProducto.textNombre.getText());
-			producto.setCantidad(Integer.parseInt(formularioProducto.textCantidad.getText()));
-			producto.setCodigo(formularioProducto.textCodigo.getText());
-			producto.setPrecio(Double.parseDouble(formularioProducto.textPrecio.getText()));
+			Producto producto = formularioProducto.getDatosProducto();
 			
 			ProductoModelo pm = new ProductoModelo();
 			pm.conectar();
 			if(pm.registrar(producto)) {
-				JOptionPane.showMessageDialog(formularioProducto, "Producto registrado");
-				JOptionPane.showInternalMessageDialog(formularioProducto, "Producto registrado", "Registro", JOptionPane.OK_OPTION);
+				JOptionPane.showMessageDialog(formularioProducto, "Producto registrado", "Ok", JOptionPane.INFORMATION_MESSAGE);
+			}else {
+				JOptionPane.showMessageDialog(formularioProducto, "Error en el registro", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			pm.cerrar();
 		}
@@ -67,6 +62,8 @@ public class ControladorProducto implements ActionListener {
 		if (e.getSource() == formularioProducto.btnBuscar) {
 
 		}
-
 	}
+	
+	
+	
 }
