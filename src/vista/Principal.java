@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Principal extends JFrame {
 
@@ -39,9 +41,22 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
+
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNewButtonActionPerformed(e);
+			}
+		});
+		contentPane.add(btnNewButton);
+
 		btnGestionarProductos = new JButton("Gestionar productos");
 		contentPane.add(btnGestionarProductos);
+	}
+
+	protected void btnNewButtonActionPerformed(ActionEvent e) {
+		Dialogoa dialog = new Dialogoa(this, true);
+		dialog.setVisible(true);
 	}
 
 }
