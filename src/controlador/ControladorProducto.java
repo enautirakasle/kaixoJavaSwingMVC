@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
@@ -49,7 +50,7 @@ public class ControladorProducto implements ActionListener {
 		}
 		
 		if (e.getSource() == formularioProducto.btnLimpiar) {
-
+			formularioProducto.limpiar();
 		}
 		
 		if (e.getSource() == formularioProducto.btnEliminar) {
