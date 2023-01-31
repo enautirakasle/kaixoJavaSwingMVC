@@ -13,11 +13,12 @@ import modelo.Producto;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-public class ProductoFormulario extends JFrame {
+public class ProductoFormulario extends JDialog {
 
 	private JPanel contentPane;
 	public JTextField textNombre;
@@ -55,7 +56,8 @@ public class ProductoFormulario extends JFrame {
 	 * Create the frame.
 	 */
 	public ProductoFormulario() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

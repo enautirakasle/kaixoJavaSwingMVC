@@ -31,7 +31,6 @@ public class ControladorProducto implements ActionListener {
 		this.formularioProducto.setTitle("Productos");
 		formularioProducto.setLocationRelativeTo(null);
 		formularioProducto.setVisible(false);
-
 	}
 
 	@Override

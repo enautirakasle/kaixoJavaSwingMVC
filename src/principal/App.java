@@ -1,18 +1,19 @@
 package principal;
 
+import controlador.ControladorPrincipal;
 import controlador.ControladorProducto;
 import modelo.ProductoModelo;
+import vista.Principal;
 import vista.ProductoFormulario;
 
 public class App {
 
 	public static void main(String[] args) {
-		ProductoModelo productoM = new ProductoModelo();
-		vista.ProductoFormulario productoF = new ProductoFormulario();
+		Principal frmPrincipal = new Principal();
 		
-		ControladorProducto productoC = new ControladorProducto(productoM, productoF);
-		productoC.inicializar();
-		productoF.setVisible(true);
+		ControladorPrincipal principalC = new ControladorPrincipal(frmPrincipal);
+		principalC.inicializar();
+		frmPrincipal.setVisible(true);
 		
 	}
 
