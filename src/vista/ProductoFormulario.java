@@ -55,7 +55,8 @@ public class ProductoFormulario extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public ProductoFormulario() {
+	public ProductoFormulario(JFrame padre, boolean modal) {
+		super(padre, modal);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
 		setBounds(100, 100, 450, 300);
@@ -192,6 +193,7 @@ public class ProductoFormulario extends JDialog {
 
 	public Producto getDatosProducto() {
 		Producto producto = new Producto();
+		producto.setId(Integer.parseInt(this.textId.getText()));
 		producto.setNombre(this.textNombre.getText());
 		producto.setCantidad(Integer.parseInt(this.textCantidad.getText()));
 		producto.setCodigo(this.textCodigo.getText());
@@ -210,5 +212,13 @@ public class ProductoFormulario extends JDialog {
 
 			this.tableModel.addRow(fila);
 		}
+	}
+
+	public void rellenarFormulario(Producto producto) {
+		textId.setText(String.valueOf(producto.getId()));
+		textCodigo.setText(producto.getCodigo());
+		textNombre.setText(producto.getNombre());
+		textCantidad.setText(String.valueOf(producto.getCantidad()));
+		textPrecio.setText(String.valueOf(producto.getPrecio()));
 	}
 }
