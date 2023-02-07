@@ -42,21 +42,8 @@ public class Principal extends JFrame {
 
 		setContentPane(contentPane);
 
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNewButtonActionPerformed(e);
-			}
-		});
-		contentPane.add(btnNewButton);
-
 		btnGestionarProductos = new JButton("Gestionar productos");
 		contentPane.add(btnGestionarProductos);
-	}
-
-	protected void btnNewButtonActionPerformed(ActionEvent e) {
-		Dialogoa dialog = new Dialogoa(this, true);
-		dialog.setVisible(true);
 	}
 
 }
