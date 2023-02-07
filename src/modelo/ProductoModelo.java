@@ -56,7 +56,22 @@ public class ProductoModelo extends Conector {
 	}
 	
 	public boolean modificar(Producto producto) {
-		return false;
+		String sql = "UPDATE productos SET codigo=?, nombre=?, cantidad=?, precio=? WHERE id=?";
+		PreparedStatement pst;
+		try {
+			pst = con.prepareStatement(sql);
+			pst.setString(1, producto.getCodigo());
+			pst.setString(2, producto.getNombre());
+			pst.setInt(3, producto.getCantidad());
+			pst.setDouble(4, producto.getPrecio());
+			pst.setInt(5, producto.getId());
+			pst.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	/*
