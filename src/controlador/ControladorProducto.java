@@ -78,11 +78,18 @@ public class ControladorProducto implements ActionListener {
 		}
 		
 		if (e.getSource() == formularioProducto.btnModificar) {
-
+			Producto producto = formularioProducto.getDatosProducto();
+			productoM.conectar();
+			productoM.modificar(producto);
+			productoM.cerrar();
 		}
 		
 		if (e.getSource() == formularioProducto.btnBuscar) {
-
+			String codigo = formularioProducto.textCodigo.getText();
+			this.productoM.conectar();
+			Producto producto = this.productoM.buscar(codigo);
+			formularioProducto.rellenarFormulario(producto);
+			this.productoM.cerrar();
 		}
 	}
 	
