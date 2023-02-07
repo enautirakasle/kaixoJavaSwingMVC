@@ -25,7 +25,7 @@ public class ControladorPrincipal implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == frmPrincipal.btnGestionarProductos) {
 			ProductoModelo productoM = new ProductoModelo();
-			vista.ProductoFormulario productoF = new ProductoFormulario();
+			vista.ProductoFormulario productoF = new ProductoFormulario(frmPrincipal, true);
 			
 			ControladorProducto productoC = new ControladorProducto(productoM, productoF);
 			productoC.inicializar();
