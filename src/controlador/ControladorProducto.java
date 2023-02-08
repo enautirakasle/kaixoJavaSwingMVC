@@ -88,8 +88,10 @@ public class ControladorProducto implements ActionListener {
 			String codigo = formularioProducto.textCodigo.getText();
 			this.productoM.conectar();
 			Producto producto = this.productoM.buscar(codigo);
-			formularioProducto.rellenarFormulario(producto);
-			this.productoM.cerrar();
+			if (producto != null) {
+				formularioProducto.rellenarFormulario(producto);
+				this.productoM.cerrar();
+			}
 		}
 	}
 	
