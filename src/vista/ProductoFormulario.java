@@ -3,6 +3,7 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -213,6 +214,12 @@ public class ProductoFormulario extends JDialog {
 			this.tableModel.addRow(fila);
 		}
 	}
+	
+	public void limpiarTablaProductos() {
+		for (int i = this.tableModel.getRowCount() - 1; i >= 0; i--) {
+			this.tableModel.removeRow(i);
+		}
+	}
 
 	public void rellenarFormulario(Producto producto) {
 		textId.setText(String.valueOf(producto.getId()));
@@ -220,5 +227,13 @@ public class ProductoFormulario extends JDialog {
 		textNombre.setText(producto.getNombre());
 		textCantidad.setText(String.valueOf(producto.getCantidad()));
 		textPrecio.setText(String.valueOf(producto.getPrecio()));
+	}
+
+	public void rellenarFormularioDeSeleccionDeTabla(int row) {
+		textId.setText(String.valueOf(tableModel.getValueAt(row, tableModel.findColumn("id"))));
+		textCodigo.setText(String.valueOf(tableModel.getValueAt(row, tableModel.findColumn("codigo"))));
+		textNombre.setText(String.valueOf(tableModel.getValueAt(row, tableModel.findColumn("nombre"))));
+		textCantidad.setText(String.valueOf(tableModel.getValueAt(row, tableModel.findColumn("cantidad"))));
+		textPrecio.setText(String.valueOf(tableModel.getValueAt(row, tableModel.findColumn("precio"))));		
 	}
 }
