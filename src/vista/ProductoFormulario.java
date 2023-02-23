@@ -124,6 +124,8 @@ public class ProductoFormulario extends JDialog {
 		contentPane.add(btnBuscar);
 
 		textId = new JTextField();
+		textId.setEditable(false);
+		textId.setEnabled(false);
 		textId.setColumns(10);
 		textId.setBounds(317, 60, 86, 20);
 		contentPane.add(textId);
