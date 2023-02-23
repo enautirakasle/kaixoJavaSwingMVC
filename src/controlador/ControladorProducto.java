@@ -34,6 +34,12 @@ public class ControladorProducto implements ActionListener, MouseListener {
 		this.formularioProducto.setTitle("Productos");
 		formularioProducto.setLocationRelativeTo(null);
 		formularioProducto.setVisible(false);
+		
+		productoM.conectar();
+		ArrayList<Producto> productos = productoM.productos();
+		productoM.cerrar();
+		
+		formularioProducto.rellenarTablaProductos(productos);
 	}
 
 	@Override
@@ -63,11 +69,15 @@ public class ControladorProducto implements ActionListener, MouseListener {
 			
 			productoM.conectar();
 			if(productoM.eliminar(producto)) {
+				
+				formularioProducto.limpiarTablaProductos();
+				ArrayList<Producto> productos = productoM.productos();
+				formularioProducto.rellenarTablaProductos(productos);
+				
 				JOptionPane.showMessageDialog(formularioProducto, "Producto eliminado", "Ok", JOptionPane.INFORMATION_MESSAGE);
 				formularioProducto.limpiar();
 			}else {
 				JOptionPane.showMessageDialog(formularioProducto, "Error al eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-
 			}
 			productoM.cerrar();
 		}
@@ -77,6 +87,7 @@ public class ControladorProducto implements ActionListener, MouseListener {
 			ArrayList<Producto> productos = productoM.productos();
 			productoM.cerrar();
 			
+			formularioProducto.limpiarTablaProductos();
 			formularioProducto.rellenarTablaProductos(productos);
 		}
 		
@@ -100,10 +111,11 @@ public class ControladorProducto implements ActionListener, MouseListener {
 	public void mouseClicked(java.awt.event.MouseEvent e) {
 		JTable source = (JTable)e.getSource();
         int row = source.rowAtPoint( e.getPoint() );
-        int column = source.columnAtPoint( e.getPoint() );
-        String s=source.getModel().getValueAt(row, column)+"";
-
-        JOptionPane.showMessageDialog(null, s);	
+        formularioProducto.rellenarFormularioDeSeleccionDeTabla(row);
+//        int column = source.columnAtPoint( e.getPoint() );
+//        String s=source.getModel().getValueAt(row, column)+"";
+//
+//        JOptionPane.showMessageDialog(null, s);	
 	}
 
 	@Override
